@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,8 +32,12 @@ namespace SerialTerminal
 
         private Thread WaitForSerialPortThread;
         private Thread SerialDataReceiveThread;
+        private Thread USBDeviceManagementThread;
 
         private string portname;
+        private bool WaitForSerialPortFlag;
+
+        private string LineEnding = "";
 
         public SerialPortPresenter(ISerialPortView view)
         {
@@ -40,6 +45,7 @@ namespace SerialTerminal
 
             this.serialPort = new SerialPort();
             this.serialPort.Close();
+
             UpdatePortStateProperty(SerialPortState.Closed);
 
             this.serialPort.ErrorReceived += this.serialPort_ErrorReceived;
@@ -50,6 +56,14 @@ namespace SerialTerminal
 
             this.View.OnSerialPortNameChanged += PortNameChanged;
             this.View.OnSerialBaudrateChanged += BaudrateChanged;
+
+            this.View.OnUsbDeviceChange += UsbDeviceChanged;
+
+            this.View.OnLineEndingsChanged += UpdateLineEnding;
+            this.View.OnSerialDataTransmit += SerialPortDataTransmit;
+            this.View.OnPeriodicDataToggle += TogglePeriodcDataTransmit;
+            
+
         }
 
         ~SerialPortPresenter()
@@ -86,10 +100,8 @@ namespace SerialTerminal
             {
                 this.UpdatePortStateProperty(SerialPortState.Open);
             }
+
         }
-
-        private readonly object PortUpdateLock = new object();
-
         private void PortNameChanged(string serialportname)
         {
             
@@ -128,9 +140,6 @@ namespace SerialTerminal
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             this.IsSerialportEventHandlerActive = true;
-
-            //if (serialPort.IsOpen && debugPrintEnabled)
-            //    dgvLogger.Print("Received " + serialPort.BytesToRead + " bytes", Color.DarkOrange);
 
             if (SerialDataReceiveThread == null || SerialDataReceiveThread.IsAlive == false)
             {
@@ -199,27 +208,22 @@ namespace SerialTerminal
 
         private void OpenCloseButtonHandler(object sender, EventArgs e)
         {
-            Console.WriteLine("OpenCloseButtonHandler");
-
             if (WaitForSerialPortThread != null && WaitForSerialPortThread.IsAlive)
             {
-                WaitForSerialPortThread.Abort();
+                WaitForSerialPortFlag = false;
                 UpdatePortStateProperty(SerialPortState.Closed);
                 return;
             }
 
             if (serialPort.IsOpen)
             {
-                Console.WriteLine("IsOpen");
                 if (this.IsSerialportEventHandlerActive) // ja ir aktiiva eventhandlera funkcija kas lasa ienākošos datus tad portu taisīsim ciet ieksh šīs funkcijas
                 {
-                    Console.WriteLine("IsSerialportEventHandlerActive");
                     this.CloseMainSerialport = true;
                     UpdatePortStateProperty(SerialPortState.Closing);
                 }
                 else
                 {
-                    Console.WriteLine("else");
                     serialPort.Close();
                     UpdatePortStateProperty(SerialPortState.Closed);
                 }
@@ -227,17 +231,24 @@ namespace SerialTerminal
                 return;
             }
 
+            if (this.portname == null)
+            { 
+                // empty portname (might happen on startup, if no serial devices are arrached)
+                return; 
+            }
+
+            WaitForSerialPortFlag = true;
             WaitForSerialPortThread = new Thread(new ThreadStart(WaitForSerialPort));
             WaitForSerialPortThread.Name = "WaitForSerialPortThread";
             WaitForSerialPortThread.Start();
-
-            Console.WriteLine("2");
         }
 
         public void WaitForSerialPort() // used as thread
         {
-            while (true)
+            while (WaitForSerialPortFlag)
             {
+                serialPort.PortName = this.portname;
+
                 if (!SerialPort.GetPortNames().Contains(serialPort.PortName))
                 {
                     UpdatePortStateProperty(SerialPortState.WaitForPortDoesntExists);
@@ -247,7 +258,6 @@ namespace SerialTerminal
 
                 try
                 {
-                    serialPort.PortName = this.portname;
                     serialPort.Open();
                     UpdatePortStateProperty(SerialPortState.Open);
                     break;
@@ -259,54 +269,144 @@ namespace SerialTerminal
                     Thread.Sleep(500);
                 }
             }
-
-            Console.WriteLine("done");
-            //deviceManagementThreadStart = new ThreadStart(deviceManagementThreadMethod);
-            //deviceManagementThread = new Thread(deviceManagementThreadStart);
-            //deviceManagementThread.Name = "deviceManagementThread";
-            //deviceManagementThread.Start();
         }
 
-        ///**
-        // * <Overriding windows function to detect usb device add/remove event>
-        // * 
-        // * @param  none
-        // * @return nothing
-        // */
-        //protected override void WndProc(ref Message m)
-        //{
-        //    const int WM_DEVICECHANGE = 0x0219;
 
-        //    switch (m.Msg)
-        //    {
-        //        case WM_DEVICECHANGE:
-        //            if ((int)m.WParam == 0x8004)
-        //            {
-        //                // USB DEVICE REMOVED
-        //                dgvLogger.Print("device removed", Color.Violet);
-        //            }
-        //            else if ((int)m.WParam == 0x8000)
-        //            {
-        //                // USB DEVICE ATTACHED
-        //                dgvLogger.Print("device attached", Color.Violet);
-        //            }
+        /// <summary>
+        /// Handles USB device add/remove event (WM_DEVICECHANGE)
+        /// 
+        /// </summary>
+        /// <param name="wParam">contains win32 msg wparam 
+        /// (https://docs.microsoft.com/en-us/windows/win32/devio/wm-devicechange)</param>
+        void UsbDeviceChanged(int wParam)
+        {
+            Console.WriteLine("UsbDeviceChanged");
+            const int DBT_DEVNODES_CHANGED = 0x0007;
+            const int DBT_QUERYCHANGECONFIG = 0x0017;
+            const int DBT_CONFIGCHANGED = 0x0018;
+            const int DBT_CONFIGCHANGECANCELED = 0x0019;
+            const int DBT_DEVICEARRIVAL = 0x8000;
+            const int DBT_DEVICEQUERYREMOVE = 0x8001;
+            const int DBT_DEVICEQUERYREMOVEFAILED = 0x8002;
+            const int DBT_DEVICEREMOVEPENDING = 0x8003;
+            const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
+            const int DBT_DEVICETYPESPECIFIC = 0x8005;
+            const int DBT_CUSTOMEVENT = 0x8006;
+            const int DBT_USERDEFINED = 0xFFFF;
 
-        //            const bool startThreadAlways = false;
-        //            // Ja seriālais ports pie device change eventa ir atveerts tad pārbaudam kadi devaici ir piesleegti PC
-        //            if (serialPort.IsOpen || startThreadAlways || virtualSerialPortAttached)
-        //            {
-        //                if (deviceManagementThread != null && deviceManagementThread.IsAlive == false)
-        //                {
-        //                    deviceManagementThreadStart = new ThreadStart(deviceManagementThreadMethod);
-        //                    deviceManagementThread = new Thread(deviceManagementThreadStart);
-        //                    deviceManagementThread.Name = "deviceManagementThread";
-        //                    deviceManagementThread.Start();
-        //                }
-        //            }
-        //            break;
-        //    }
-        //    base.WndProc(ref m);
-        //}
+            if (wParam != DBT_DEVICEREMOVECOMPLETE)
+            {
+                Console.WriteLine("wParam != DBT_DEVICEREMOVECOMPLETE");
+                // get the usb devicees only when usb device is removed from PC
+                return;
+            }
 
+            //if (!serialPort.IsOpen)
+            //{
+            //    Console.WriteLine("!serialPort.IsOpen");
+            //    // no need to check USB devices, if port is closed
+            //    return;
+            //}
+
+            if (USBDeviceManagementThread?.IsAlive == true)
+            {
+                Console.WriteLine("USBDeviceManagementThread?.IsAlive == true");
+                // previous USBDeviceManagementThread still running, dont start new one
+                return;
+            }
+
+            USBDeviceManagementThread = new Thread(new ThreadStart(deviceManagementThreadMethod));
+            USBDeviceManagementThread.Name = "deviceManagementThread";
+            USBDeviceManagementThread.Start();
+        }
+
+        private void deviceManagementThreadMethod() // janomaina nosaukums
+        {
+            Console.WriteLine("deviceManagementThreadMethod");
+            bool deviceIsStillAttached = false;
+
+            try
+            {
+                // using (var searcher = new ManagementObjectSearcher("root\\WMI", "SELECT * FROM MSSerial_PortName"))
+                // using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity"))
+                using (var searcher = new ManagementObjectSearcher("SELECT DeviceID FROM WIN32_SerialPort"))
+                {
+                    var result = searcher.Get();
+                    foreach (var Device in result)
+                    {
+                        string DeviceManagerCOMPortNumber = Device.GetPropertyValue("DeviceID")?.ToString();
+
+                        if (DeviceManagerCOMPortNumber == null)
+                        {
+                            continue;
+                        }
+
+                        Console.WriteLine($"{DeviceManagerCOMPortNumber} \t\t\t $$$$");
+
+                        if (DeviceManagerCOMPortNumber.Equals((serialPort.PortName)))
+                        {
+                            deviceIsStillAttached = true;
+                            return;
+                        }
+                    }
+                }
+
+                using (var searcher = new ManagementObjectSearcher($"SELECT Name FROM Win32_PnPEntity WHERE Name LIKE '%{serialPort.PortName}%'"))
+                {
+                    var result = searcher.Get();
+                    foreach (var Device in result)
+                    {
+                        object DeviceName = Device.GetPropertyValue("Name");
+
+                        if (DeviceName == null)
+                        { 
+                            continue;
+                        }
+
+                        Console.WriteLine($"---- {DeviceName.ToString()} **** ");
+
+                        if (DeviceName.ToString().Contains((serialPort.PortName)))
+                        {
+                            deviceIsStillAttached = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (deviceIsStillAttached == false)
+                {
+                    // todo reopen 
+                    OpenCloseButtonHandler(null, null);
+                    //dgvLogger.Print("COM port Opened but not found, Closing Port", Color.Red);
+                }
+            }
+            catch (ManagementException me)
+            {
+                //dgvLogger.Print("An error occurred while querying for WMI data: " + me.Message, Color.Black);
+            }
+        }
+
+        
+        private void UpdateLineEnding(string lineEnding)
+        {
+            this.LineEnding = lineEnding;
+        }
+
+        private void SerialPortDataTransmit(string data)
+        {
+            if (!this.serialPort.IsOpen)
+            {
+                return;
+            }
+
+            string txData = $"{data}{this.LineEnding}";
+            this.serialPort.Write(txData);
+        }
+
+        private void TogglePeriodcDataTransmit(string data, int interval)
+        {
+            // todo
+        }
+        
     }
 }

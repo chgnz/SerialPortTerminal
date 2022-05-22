@@ -12,9 +12,14 @@ namespace SerialTerminal
 
         void AppendSerialData(string data);
 
+        event Action<string> OnSerialDataTransmit;
+
         event EventHandler OnOpenCloseButtonPressed;
         event Action<string> OnSerialPortNameChanged;
         event Action<string> OnSerialBaudrateChanged;
+        event Action<string> OnLineEndingsChanged;
+        event Action<string, int> OnPeriodicDataToggle;
+        event Action<int> OnUsbDeviceChange;
 
     }
 }

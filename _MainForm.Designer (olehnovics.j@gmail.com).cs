@@ -51,34 +51,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dgv_debug = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.radioButton_RN = new System.Windows.Forms.RadioButton();
-            this.radioButton_N = new System.Windows.Forms.RadioButton();
-            this.radioButton_R = new System.Windows.Forms.RadioButton();
-            this.textBox_PeriodicDataSendingPeriod = new System.Windows.Forms.TextBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.textBox_PeriodicDataSendingText = new System.Windows.Forms.TextBox();
-            this.button10 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_10 = new System.Windows.Forms.TextBox();
-            this.button11 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_8 = new System.Windows.Forms.TextBox();
-            this.button12 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_6 = new System.Windows.Forms.TextBox();
-            this.button13 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_4 = new System.Windows.Forms.TextBox();
-            this.button14 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_2 = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_11 = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_9 = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_7 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_5 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_3 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textbox_shortcut_1 = new System.Windows.Forms.TextBox();
             this.textBox_distributorID = new System.Windows.Forms.TextBox();
             this.textBox_serialNumber = new System.Windows.Forms.TextBox();
             this.textBox_PhoneNumber = new System.Windows.Forms.TextBox();
@@ -120,7 +92,6 @@
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_debug)).BeginInit();
             this.SuspendLayout();
@@ -128,9 +99,6 @@
             // serialPort
             // 
             this.serialPort.DtrEnable = true;
-            this.serialPort.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort_ErrorReceived);
-            this.serialPort.PinChanged += new System.IO.Ports.SerialPinChangedEventHandler(this.serialPort_PinChanged);
-            this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             // 
             // toolStrip
             // 
@@ -152,34 +120,31 @@
             // tsbutton_dtrButton
             // 
             this.tsbutton_dtrButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbutton_dtrButton.Image = global::TerminalNew.Properties.Resources.checkGreen;
+            this.tsbutton_dtrButton.Image = global::SerialTerminal.Properties.Resources.checkGreen;
             this.tsbutton_dtrButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbutton_dtrButton.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
             this.tsbutton_dtrButton.Name = "tsbutton_dtrButton";
-            this.tsbutton_dtrButton.Size = new System.Drawing.Size(28, 20);
+            this.tsbutton_dtrButton.Size = new System.Drawing.Size(22, 20);
             this.tsbutton_dtrButton.Text = "Turn Off DTR";
-            this.tsbutton_dtrButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // tsbutton_autoRetry
             // 
             this.tsbutton_autoRetry.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbutton_autoRetry.Image = global::TerminalNew.Properties.Resources.checkGreen;
+            this.tsbutton_autoRetry.Image = global::SerialTerminal.Properties.Resources.checkGreen;
             this.tsbutton_autoRetry.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbutton_autoRetry.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
             this.tsbutton_autoRetry.Name = "tsbutton_autoRetry";
-            this.tsbutton_autoRetry.Size = new System.Drawing.Size(28, 20);
+            this.tsbutton_autoRetry.Size = new System.Drawing.Size(22, 20);
             this.tsbutton_autoRetry.Text = "toolStrip_autoRetry";
-            this.tsbutton_autoRetry.Click += new System.EventHandler(this.toolStrip_autoRetry_Click);
             // 
             // tsbutton_clearTextbox
             // 
             this.tsbutton_clearTextbox.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbutton_clearTextbox.Image = global::TerminalNew.Properties.Resources.checkGreen;
+            this.tsbutton_clearTextbox.Image = global::SerialTerminal.Properties.Resources.checkGreen;
             this.tsbutton_clearTextbox.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbutton_clearTextbox.Name = "tsbutton_clearTextbox";
-            this.tsbutton_clearTextbox.Size = new System.Drawing.Size(30, 20);
+            this.tsbutton_clearTextbox.Size = new System.Drawing.Size(24, 20);
             this.tsbutton_clearTextbox.Text = "Clear TextBox";
-            this.tsbutton_clearTextbox.Click += new System.EventHandler(this.tsbutton_clearTextbox_Click);
             // 
             // splitContainer
             // 
@@ -212,7 +177,6 @@
             this.tabContainer.SelectedIndex = 0;
             this.tabContainer.Size = new System.Drawing.Size(713, 336);
             this.tabContainer.TabIndex = 0;
-            this.tabContainer.SelectedIndexChanged += new System.EventHandler(this.tabContainer_SelectedIndexChanged);
             // 
             // tab_MainTab
             // 
@@ -238,7 +202,6 @@
             this.textbox_SendBox.Name = "textbox_SendBox";
             this.textbox_SendBox.Size = new System.Drawing.Size(695, 20);
             this.textbox_SendBox.TabIndex = 1;
-            this.textbox_SendBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_SendBox_KeyPress);
             // 
             // textbox_ReceiveBox
             // 
@@ -260,8 +223,6 @@
             this.comboBox_Port.Name = "comboBox_Port";
             this.comboBox_Port.Size = new System.Drawing.Size(68, 21);
             this.comboBox_Port.TabIndex = 2;
-            this.comboBox_Port.DropDown += new System.EventHandler(this.comboBox_Port_DropDown);
-            this.comboBox_Port.SelectedIndexChanged += new System.EventHandler(this.comboBox_Port_SelectedIndexChanged);
             // 
             // button_openSerialPort
             // 
@@ -273,7 +234,6 @@
             this.button_openSerialPort.TabIndex = 4;
             this.button_openSerialPort.Text = "Open";
             this.button_openSerialPort.UseVisualStyleBackColor = true;
-            this.button_openSerialPort.Click += new System.EventHandler(this.button_openSerialPort_Click);
             // 
             // comboBox_Baudrate
             // 
@@ -293,14 +253,12 @@
             this.comboBox_Baudrate.Name = "comboBox_Baudrate";
             this.comboBox_Baudrate.Size = new System.Drawing.Size(68, 21);
             this.comboBox_Baudrate.TabIndex = 3;
-            this.comboBox_Baudrate.SelectedIndexChanged += new System.EventHandler(this.comboBox_Baudrate_SelectedIndexChanged);
-            this.comboBox_Baudrate.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox_Baudrate_KeyUp);
             // 
             // tab_gbox4FwUpd
             // 
             this.tab_gbox4FwUpd.Location = new System.Drawing.Point(4, 22);
             this.tab_gbox4FwUpd.Name = "tab_gbox4FwUpd";
-            this.tab_gbox4FwUpd.Size = new System.Drawing.Size(699, 310);
+            this.tab_gbox4FwUpd.Size = new System.Drawing.Size(705, 310);
             this.tab_gbox4FwUpd.TabIndex = 1;
             // 
             // splitContainer1
@@ -339,22 +297,20 @@
             // tsbutton_ScroolToCarret
             // 
             this.tsbutton_ScroolToCarret.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbutton_ScroolToCarret.Image = global::TerminalNew.Properties.Resources.downGreen;
+            this.tsbutton_ScroolToCarret.Image = global::SerialTerminal.Properties.Resources.downGreen;
             this.tsbutton_ScroolToCarret.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbutton_ScroolToCarret.Name = "tsbutton_ScroolToCarret";
             this.tsbutton_ScroolToCarret.Size = new System.Drawing.Size(23, 20);
             this.tsbutton_ScroolToCarret.Text = "Scrool To Carret";
-            this.tsbutton_ScroolToCarret.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // tsbutton_clearDebugWindow
             // 
             this.tsbutton_clearDebugWindow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbutton_clearDebugWindow.Image = global::TerminalNew.Properties.Resources.trash;
+            this.tsbutton_clearDebugWindow.Image = global::SerialTerminal.Properties.Resources.trash;
             this.tsbutton_clearDebugWindow.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbutton_clearDebugWindow.Name = "tsbutton_clearDebugWindow";
             this.tsbutton_clearDebugWindow.Size = new System.Drawing.Size(23, 20);
             this.tsbutton_clearDebugWindow.Text = "clear Debug Window";
-            this.tsbutton_clearDebugWindow.Click += new System.EventHandler(this.tsbutton_clearDebugWindow_Click);
             // 
             // splitContainer2
             // 
@@ -366,39 +322,8 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.dgv_debug);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.radioButton_RN);
-            this.splitContainer2.Panel2.Controls.Add(this.radioButton_N);
-            this.splitContainer2.Panel2.Controls.Add(this.radioButton_R);
-            this.splitContainer2.Panel2.Controls.Add(this.textBox_PeriodicDataSendingPeriod);
-            this.splitContainer2.Panel2.Controls.Add(this.button9);
-            this.splitContainer2.Panel2.Controls.Add(this.textBox_PeriodicDataSendingText);
-            this.splitContainer2.Panel2.Controls.Add(this.button10);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_10);
-            this.splitContainer2.Panel2.Controls.Add(this.button11);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_8);
-            this.splitContainer2.Panel2.Controls.Add(this.button12);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_6);
-            this.splitContainer2.Panel2.Controls.Add(this.button13);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_4);
-            this.splitContainer2.Panel2.Controls.Add(this.button14);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_2);
-            this.splitContainer2.Panel2.Controls.Add(this.button8);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_11);
-            this.splitContainer2.Panel2.Controls.Add(this.button7);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_9);
-            this.splitContainer2.Panel2.Controls.Add(this.button6);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_7);
-            this.splitContainer2.Panel2.Controls.Add(this.button5);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_5);
-            this.splitContainer2.Panel2.Controls.Add(this.button4);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_3);
-            this.splitContainer2.Panel2.Controls.Add(this.button3);
-            this.splitContainer2.Panel2.Controls.Add(this.textbox_shortcut_1);
             this.splitContainer2.Size = new System.Drawing.Size(684, 217);
-            this.splitContainer2.SplitterDistance = 245;
+            this.splitContainer2.SplitterDistance = 244;
             this.splitContainer2.TabIndex = 0;
             // 
             // dgv_debug
@@ -428,7 +353,7 @@
             this.dgv_debug.ShowCellToolTips = false;
             this.dgv_debug.ShowEditingIcon = false;
             this.dgv_debug.ShowRowErrors = false;
-            this.dgv_debug.Size = new System.Drawing.Size(243, 215);
+            this.dgv_debug.Size = new System.Drawing.Size(242, 215);
             this.dgv_debug.TabIndex = 0;
             // 
             // Column1
@@ -438,261 +363,6 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // radioButton_RN
-            // 
-            this.radioButton_RN.AutoSize = true;
-            this.radioButton_RN.Checked = true;
-            this.radioButton_RN.Location = new System.Drawing.Point(85, 160);
-            this.radioButton_RN.Name = "radioButton_RN";
-            this.radioButton_RN.Size = new System.Drawing.Size(44, 17);
-            this.radioButton_RN.TabIndex = 27;
-            this.radioButton_RN.TabStop = true;
-            this.radioButton_RN.Text = "\\r\\n";
-            this.radioButton_RN.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_N
-            // 
-            this.radioButton_N.AutoSize = true;
-            this.radioButton_N.Location = new System.Drawing.Point(43, 160);
-            this.radioButton_N.Name = "radioButton_N";
-            this.radioButton_N.Size = new System.Drawing.Size(36, 17);
-            this.radioButton_N.TabIndex = 26;
-            this.radioButton_N.Text = "\\n";
-            this.radioButton_N.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_R
-            // 
-            this.radioButton_R.AutoSize = true;
-            this.radioButton_R.Location = new System.Drawing.Point(4, 160);
-            this.radioButton_R.Name = "radioButton_R";
-            this.radioButton_R.Size = new System.Drawing.Size(33, 17);
-            this.radioButton_R.TabIndex = 25;
-            this.radioButton_R.Text = "\\r";
-            this.radioButton_R.UseVisualStyleBackColor = true;
-            // 
-            // textBox_PeriodicDataSendingPeriod
-            // 
-            this.textBox_PeriodicDataSendingPeriod.Location = new System.Drawing.Point(211, 134);
-            this.textBox_PeriodicDataSendingPeriod.Name = "textBox_PeriodicDataSendingPeriod";
-            this.textBox_PeriodicDataSendingPeriod.Size = new System.Drawing.Size(55, 20);
-            this.textBox_PeriodicDataSendingPeriod.TabIndex = 23;
-            this.textBox_PeriodicDataSendingPeriod.Text = "time [ms]";
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(272, 134);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(20, 20);
-            this.button9.TabIndex = 24;
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // textBox_PeriodicDataSendingText
-            // 
-            this.textBox_PeriodicDataSendingText.Location = new System.Drawing.Point(151, 134);
-            this.textBox_PeriodicDataSendingText.Name = "textBox_PeriodicDataSendingText";
-            this.textBox_PeriodicDataSendingText.Size = new System.Drawing.Size(54, 20);
-            this.textBox_PeriodicDataSendingText.TabIndex = 22;
-            this.textBox_PeriodicDataSendingText.Text = "txt";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(272, 108);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(20, 20);
-            this.button10.TabIndex = 21;
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // textbox_shortcut_10
-            // 
-            this.textbox_shortcut_10.Location = new System.Drawing.Point(151, 108);
-            this.textbox_shortcut_10.Name = "textbox_shortcut_10";
-            this.textbox_shortcut_10.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_10.TabIndex = 20;
-            this.textbox_shortcut_10.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_10_KeyUp);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(272, 82);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(20, 20);
-            this.button11.TabIndex = 19;
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // textbox_shortcut_8
-            // 
-            this.textbox_shortcut_8.Location = new System.Drawing.Point(151, 82);
-            this.textbox_shortcut_8.Name = "textbox_shortcut_8";
-            this.textbox_shortcut_8.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_8.TabIndex = 18;
-            this.textbox_shortcut_8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_8_KeyUp);
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(272, 56);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(20, 20);
-            this.button12.TabIndex = 17;
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // textbox_shortcut_6
-            // 
-            this.textbox_shortcut_6.Location = new System.Drawing.Point(151, 56);
-            this.textbox_shortcut_6.Name = "textbox_shortcut_6";
-            this.textbox_shortcut_6.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_6.TabIndex = 16;
-            this.textbox_shortcut_6.Text = "DATA";
-            this.textbox_shortcut_6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_6_KeyUp);
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(272, 30);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(20, 20);
-            this.button13.TabIndex = 15;
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // textbox_shortcut_4
-            // 
-            this.textbox_shortcut_4.Location = new System.Drawing.Point(151, 30);
-            this.textbox_shortcut_4.Name = "textbox_shortcut_4";
-            this.textbox_shortcut_4.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_4.TabIndex = 14;
-            this.textbox_shortcut_4.Text = "STATUS";
-            this.textbox_shortcut_4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_4_KeyUp);
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(272, 4);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(20, 20);
-            this.button14.TabIndex = 13;
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
-            // textbox_shortcut_2
-            // 
-            this.textbox_shortcut_2.Location = new System.Drawing.Point(151, 4);
-            this.textbox_shortcut_2.Name = "textbox_shortcut_2";
-            this.textbox_shortcut_2.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_2.TabIndex = 12;
-            this.textbox_shortcut_2.Text = "TEST";
-            this.textbox_shortcut_2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_2_KeyUp);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(125, 134);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(20, 20);
-            this.button8.TabIndex = 11;
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // textbox_shortcut_11
-            // 
-            this.textbox_shortcut_11.Location = new System.Drawing.Point(4, 134);
-            this.textbox_shortcut_11.Name = "textbox_shortcut_11";
-            this.textbox_shortcut_11.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_11.TabIndex = 10;
-            this.textbox_shortcut_11.Text = "AT+CFUN=1,1";
-            this.textbox_shortcut_11.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_11_KeyUp);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(125, 108);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(20, 20);
-            this.button7.TabIndex = 9;
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // textbox_shortcut_9
-            // 
-            this.textbox_shortcut_9.Location = new System.Drawing.Point(4, 108);
-            this.textbox_shortcut_9.Name = "textbox_shortcut_9";
-            this.textbox_shortcut_9.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_9.TabIndex = 8;
-            this.textbox_shortcut_9.Text = "AT+CSQ";
-            this.textbox_shortcut_9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_9_KeyUp);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(125, 82);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(20, 20);
-            this.button6.TabIndex = 7;
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // textbox_shortcut_7
-            // 
-            this.textbox_shortcut_7.Location = new System.Drawing.Point(4, 82);
-            this.textbox_shortcut_7.Name = "textbox_shortcut_7";
-            this.textbox_shortcut_7.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_7.TabIndex = 6;
-            this.textbox_shortcut_7.Text = "AT+GMR";
-            this.textbox_shortcut_7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_7_KeyUp);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(125, 56);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(20, 20);
-            this.button5.TabIndex = 5;
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // textbox_shortcut_5
-            // 
-            this.textbox_shortcut_5.Location = new System.Drawing.Point(4, 56);
-            this.textbox_shortcut_5.Name = "textbox_shortcut_5";
-            this.textbox_shortcut_5.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_5.TabIndex = 4;
-            this.textbox_shortcut_5.Text = "AT+COPS?";
-            this.textbox_shortcut_5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_5_KeyUp);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(125, 30);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(20, 20);
-            this.button4.TabIndex = 3;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // textbox_shortcut_3
-            // 
-            this.textbox_shortcut_3.Location = new System.Drawing.Point(4, 30);
-            this.textbox_shortcut_3.Name = "textbox_shortcut_3";
-            this.textbox_shortcut_3.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_3.TabIndex = 2;
-            this.textbox_shortcut_3.Text = "AT+CREG?";
-            this.textbox_shortcut_3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_3_KeyUp);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.ForeColor = System.Drawing.Color.Transparent;
-            this.button3.Location = new System.Drawing.Point(125, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(20, 20);
-            this.button3.TabIndex = 1;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // textbox_shortcut_1
-            // 
-            this.textbox_shortcut_1.Location = new System.Drawing.Point(4, 4);
-            this.textbox_shortcut_1.Name = "textbox_shortcut_1";
-            this.textbox_shortcut_1.Size = new System.Drawing.Size(115, 20);
-            this.textbox_shortcut_1.TabIndex = 0;
-            this.textbox_shortcut_1.Text = "AT";
-            this.textbox_shortcut_1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox_shortcut_1_KeyUp);
             // 
             // textBox_distributorID
             // 
@@ -848,7 +518,6 @@
             this.button_ReconfigureTeltonika.TabIndex = 8;
             this.button_ReconfigureTeltonika.Text = "reconfigure teltonika fm11";
             this.button_ReconfigureTeltonika.UseVisualStyleBackColor = true;
-            this.button_ReconfigureTeltonika.Click += new System.EventHandler(this.button_ReconfigureTeltonika_Click);
             // 
             // button23
             // 
@@ -858,7 +527,6 @@
             this.button23.TabIndex = 6;
             this.button23.Text = "Load HEX";
             this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.button23_Click);
             // 
             // button22
             // 
@@ -868,7 +536,6 @@
             this.button22.TabIndex = 5;
             this.button22.Text = "settings upd";
             this.button22.UseVisualStyleBackColor = true;
-            this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
             // button_openHEXFile
             // 
@@ -878,7 +545,6 @@
             this.button_openHEXFile.TabIndex = 3;
             this.button_openHEXFile.Text = "Load HEX";
             this.button_openHEXFile.UseVisualStyleBackColor = true;
-            this.button_openHEXFile.Click += new System.EventHandler(this.button_openHEXFile_Click);
             // 
             // button_startFwUpdate
             // 
@@ -888,7 +554,6 @@
             this.button_startFwUpdate.TabIndex = 2;
             this.button_startFwUpdate.Text = "fw update";
             this.button_startFwUpdate.UseVisualStyleBackColor = true;
-            this.button_startFwUpdate.Click += new System.EventHandler(this.button3_Click);
             // 
             // comboBox_PortFwUpdate
             // 
@@ -897,8 +562,6 @@
             this.comboBox_PortFwUpdate.Name = "comboBox_PortFwUpdate";
             this.comboBox_PortFwUpdate.Size = new System.Drawing.Size(68, 21);
             this.comboBox_PortFwUpdate.TabIndex = 0;
-            this.comboBox_PortFwUpdate.DropDown += new System.EventHandler(this.comboBox_PortFwUpdate_DropDown);
-            this.comboBox_PortFwUpdate.SelectedIndexChanged += new System.EventHandler(this.comboBox_PortFwUpdate_SelectedIndexChanged);
             // 
             // comboBox_BaudrateFwUpdate
             // 
@@ -919,7 +582,6 @@
             this.comboBox_BaudrateFwUpdate.Size = new System.Drawing.Size(68, 21);
             this.comboBox_BaudrateFwUpdate.TabIndex = 1;
             this.comboBox_BaudrateFwUpdate.Text = "9600";
-            this.comboBox_BaudrateFwUpdate.SelectedIndexChanged += new System.EventHandler(this.comboBox_BaudrateFwUpdate_SelectedIndexChanged);
             // 
             // serialPortForward
             // 
@@ -938,8 +600,6 @@
             this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "FormTerminal";
             this.Text = "Terminal";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTerminal_FormClosing);
-            this.Load += new System.EventHandler(this.FormTerminal_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
@@ -957,8 +617,6 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_debug)).EndInit();
@@ -980,39 +638,11 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridView dgv_debug;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.TextBox textbox_shortcut_1;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.TextBox textbox_shortcut_11;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.TextBox textbox_shortcut_9;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.TextBox textbox_shortcut_7;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textbox_shortcut_5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textbox_shortcut_3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.TextBox textBox_PeriodicDataSendingText;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.TextBox textbox_shortcut_10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.TextBox textbox_shortcut_8;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.TextBox textbox_shortcut_6;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.TextBox textbox_shortcut_4;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.TextBox textbox_shortcut_2;
         private System.Windows.Forms.ToolStripButton tsbutton_ScroolToCarret;
         private System.Windows.Forms.ToolStripButton tsbutton_clearDebugWindow;
         private System.IO.Ports.SerialPort serialPortForward;
-        private System.Windows.Forms.TextBox textBox_PeriodicDataSendingPeriod;
         private System.Windows.Forms.ToolStripButton tsbutton_clearTextbox;
         private System.IO.Ports.SerialPort serialPort_GboxTest;
-        private System.Windows.Forms.RadioButton radioButton_N;
-        private System.Windows.Forms.RadioButton radioButton_R;
-        private System.Windows.Forms.RadioButton radioButton_RN;
         private System.Windows.Forms.Timer timer_timeout;
         private System.Windows.Forms.TabControl tabContainer;
         private System.Windows.Forms.TabPage tab_MainTab;
@@ -1045,6 +675,7 @@
         private System.Windows.Forms.Button button_startFwUpdate;
         private System.Windows.Forms.ComboBox comboBox_PortFwUpdate;
         private System.Windows.Forms.ComboBox comboBox_BaudrateFwUpdate;
+
     }
 }
 

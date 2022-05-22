@@ -15,13 +15,9 @@ namespace SerialTerminal
             Application.SetCompatibleTextRenderingDefault(false);
 
             var simple_form = new SimpleFormTerminal();
-            //var empty_form = new Form1();
-
+            simple_form.Init();
             var presenter_main_form = new SerialPortPresenter(simple_form);
-            //var presenter_empty_form = new SerialPortPresenter(empty_form);
-
-            //simple_form.Show();
-            //empty_form.Show();
+            simple_form.TriggerInitialEvents();
 
             Application.Run(simple_form);
         }
